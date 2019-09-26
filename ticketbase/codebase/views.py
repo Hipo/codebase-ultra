@@ -24,7 +24,7 @@ def search(request):
     keyword_filter = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
 
     if assignee_id:
-        keyword_filter.append(Q(assignee_id=assignee_id))
+        keyword_filter.append(Q(assignee__codebase_id=assignee_id))
 
     tickets = Ticket.objects.filter(*keyword_filter).distinct().order_by('-ticket_id')
     context = {

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField
+from ticketbase.users.models import User
 
 import xml.etree.ElementTree as ET
 
@@ -18,8 +19,8 @@ class Ticket(models.Model):
     updated_at = models.DateTimeField(null=True, default=timezone.now)
     created_at = models.DateTimeField(null=True, default=timezone.now)
     summary = models.TextField(null=True, blank=True)
-    reporter_id = models.IntegerField(null=True)
-    assignee_id = models.IntegerField(null=True)
+    reporter = models.ForeignKey('users.User', null=True, on_delete=models.CASCADE, related_name='reporter')
+    assignee = models.ForeignKey('users.User', null=True, on_delete=models.CASCADE, related_name='assignee')
 
     class Meta:
         unique_together = ['ticket_id', 'project']
@@ -30,8 +31,15 @@ class Ticket(models.Model):
         self.updated_at = node.find('updated-at').text
         self.ceated_at = node.find('created-at').text
         self.summary = node.find('summary').text
-        self.reporter_id = node.find('reporter-id').text
-        self.assignee_id = node.find('assignee-id').text
+
+        try:
+            self.assignee = User.objects.get(codebase_id=node.find('assignee-id').text)
+        except User.DoesNotExist:
+            self.assignee = None
+        try:
+            self.reporter = User.objects.get(codebase_id=node.find('reporter-id').text)
+        except User.DoesNotExist:
+            self.reporter = None
 
 
 class TicketNote(models.Model):
