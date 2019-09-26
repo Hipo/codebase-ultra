@@ -15,6 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('Date Joined'), auto_now_add=True, editable=False)
     is_active = models.BooleanField(verbose_name=_('Active Status'), default=True)
     is_staff = models.BooleanField(verbose_name=_('Staff Status'), default=False)
+    codebase_id = models.IntegerField(null=True)
 
     objects = UserManager()
 

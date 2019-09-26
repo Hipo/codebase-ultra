@@ -19,9 +19,14 @@ def index(request):
 
 def search(request):
     q = request.GET.get('q', '')
+    assignee_id = request.GET.get('assignee_id', '')
     keywords = q.split()
-    filters = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
-    tickets = Ticket.objects.filter(*filters).distinct().order_by('-ticket_id')
+    keyword_filter = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
+
+    if assignee_id:
+        keyword_filter.append(Q(assignee_id=assignee_id))
+
+    tickets = Ticket.objects.filter(*keyword_filter).distinct().order_by('-ticket_id')
     context = {
         'results': tickets[:100],
         'q': q,
