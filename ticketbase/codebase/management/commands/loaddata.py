@@ -6,6 +6,7 @@ from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand, CommandError
 
 from ticketbase.codebase.models import Ticket, TicketNote, Project
+from ticketbase.codebase import api
 
 
 class Command(BaseCommand):
@@ -13,13 +14,16 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('directory', type=str)
+        parser.add_argument('project_name', type=str)
 
     def handle(self, *args, **options):
         path = Path(options['directory'])
 
         files = (path / 'tickets').glob('*.xml')
 
-        project, _ = Project.objects.get_or_create(project_id=53230, name='chroma')
+        project_id = api.get_project_id(options['project_name'])
+
+        project, _ = Project.objects.get_or_create(project_id=project_id, name=options['project_name'])
 
         n = 0
         for filename in files:
