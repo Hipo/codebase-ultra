@@ -14,7 +14,7 @@ from .models import Ticket
 
 def index(request):
     context = {}
-    return render(request, 'core/index.html', context)
+    return render(request, 'codebase/index.html', context)
 
 
 def search(request):
