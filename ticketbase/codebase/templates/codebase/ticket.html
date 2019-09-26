@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title></title>
-  </head>
-  <body>
-    <h3>{{ ticket.ticket_id }}: {{ ticket.summary }}</h3>
+{% extends 'codebase/base.html' %}
 
-    <ul>
-      {% for note in ticket.ticketnote_set.all %}
-      <li>
-        <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
-      </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% block content %}
+
+  <h3>{{ ticket.ticket_id }}: {{ ticket.summary }}</h3>
+
+  <ul>
+    {% for note in ticket.ticketnote_set.all %}
+    <li>
+      <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
+    </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
