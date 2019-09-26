@@ -20,11 +20,18 @@ def index(request):
 def search(request):
     q = request.GET.get('q', '')
     assignee_id = request.GET.get('assignee_id', '')
+    assignee = request.GET.get('assignee', '')
     keywords = q.split()
     keyword_filter = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
 
     if assignee_id:
         keyword_filter.append(Q(assignee__codebase_id=assignee_id))
+
+    if assignee:
+        keyword_filter.extend([Q(assignee__username__icontains=assignee) |
+                               Q(assignee__first_name__icontains=assignee) |
+                               Q(assignee__last_name__icontains=assignee) |
+                               Q(assignee__email__icontains=assignee)])
 
     tickets = Ticket.objects.filter(*keyword_filter).distinct().order_by('-ticket_id')
     context = {
