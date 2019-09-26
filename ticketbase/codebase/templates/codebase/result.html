@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title></title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Result {{ fit_request.id }}</h1>
     <table>
-        <tr><th>Front</th><td><img src="{{ fit_request.front_image.url}}" height="200"></td></tr>
-        <tr><th>Side</th><td><img src="{{ fit_request.side_image.url}}" height="200"></td></tr>
-        <tr><th>Chest Circumference</th><td>{{ fit_request.chest_circumference }}cm</td></tr>
-        <tr><th>Waist Circumference</th><td>{{ fit_request.waist_circumference }}cm</td></tr>
-        <tr><th>Hip Circumference</th><td>{{ fit_request.hips_circumference }}cm</td></tr>
+      <tr>
+        <th>Front</th>
+        <td><img src="{{ fit_request.front_image.url }}" height="200" /></td>
+      </tr>
+      <tr>
+        <th>Side</th>
+        <td><img src="{{ fit_request.side_image.url }}" height="200" /></td>
+      </tr>
+      <tr>
+        <th>Chest Circumference</th>
+        <td>{{ fit_request.chest_circumference }}cm</td>
+      </tr>
+      <tr>
+        <th>Waist Circumference</th>
+        <td>{{ fit_request.waist_circumference }}cm</td>
+      </tr>
+      <tr>
+        <th>Hip Circumference</th>
+        <td>{{ fit_request.hips_circumference }}cm</td>
+      </tr>
     </table>
-</body>
+  </body>
 </html>
