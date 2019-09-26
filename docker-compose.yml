@@ -1,0 +1,16 @@
+version: "3.4"
+
+services:
+  nginx:
+    image: nginx:1.14.0
+    ports:
+      - "80:80"
+    container_name: ticketbase_nginx
+    restart: on-failure
+
+  ticketbase:
+    image: ticketbase
+    build:
+      context: .
+      target: application
+    container_name: ticketbase_app

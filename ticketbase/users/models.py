@@ -4,11 +4,10 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.utils.translation import ugettext_lazy as _
-from hipo_django_core.models import AbstractBaseModel
 
 
 
-class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name=_('Email'), unique=True, db_index=True)
     username = models.CharField(_('Username'), max_length=150, unique=True)
     first_name = models.CharField(_('First Name'), max_length=255)

@@ -1,4 +1,4 @@
-"""fitapi URL Configuration
+"""ticketbase URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -25,5 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('ticketbase.core.urls')),
     url(r'codebase/', include('ticketbase.codebase.urls')),
-    url(r'^', include('hipo_django_core.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
