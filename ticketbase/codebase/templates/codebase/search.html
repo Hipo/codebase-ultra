@@ -16,9 +16,7 @@
   {% for result in results %}
   <tr>
     <td>
-      <a href="/codebase/ticket/{{ result.ticket_id }}/">{{
-        result.ticket_id
-      }}</a>
+      <a href="/ticket/{{ result.ticket_id }}/">{{ result.ticket_id }}</a>
     </td>
     <td>{{ result.summary }}</td>
   </tr>
