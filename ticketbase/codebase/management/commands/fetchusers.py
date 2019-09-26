@@ -28,6 +28,7 @@ class Command(BaseCommand):
                 codebase_id=int(node.find('id').text),
                 email=node.find('email-address').text,
                 company=node.find('company').text,
+                is_active=False,
             ))
             user.projects.add(project)
             n += 1
