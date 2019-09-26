@@ -16,6 +16,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(verbose_name=_('Active Status'), default=True)
     is_staff = models.BooleanField(verbose_name=_('Staff Status'), default=False)
     codebase_id = models.IntegerField(null=True)
+    projects = models.ManyToManyField('codebase.Project')
+    company = models.CharField(_('Company'), max_length=255, blank=True)
 
     objects = UserManager()
 
