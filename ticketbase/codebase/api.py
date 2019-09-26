@@ -37,3 +37,19 @@ def get_ticket_notes(ticket_id):
     r.raise_for_status()
     root = ET.fromstring(r.text)
     return list(root)
+
+
+def get_project_id(project_name):
+    r = session.get(f'https://api3.codebasehq.com/{project_name}')
+    r.raise_for_status()
+    root = ET.fromstring(r.text)
+    return root.find('project-id').text
+
+
+def get_users(project_name):
+    r = session.get(f'https://api3.codebasehq.com/{project_name}/assignments')
+    r.raise_for_status()
+    root = ET.fromstring(r.text)
+    return list(root)
+
+
