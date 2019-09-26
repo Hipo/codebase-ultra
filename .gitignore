@@ -122,3 +122,4 @@ terraform.tfstate.backup
 
 
 /algorand/settings/secrets*py
+*.xml
