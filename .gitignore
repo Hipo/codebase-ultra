@@ -121,4 +121,5 @@ terraform.tfstate.backup
 *.backup
 
 
-/algorand/settings/secrets*py
+/ticketbase/settings/secrets.py
+*.xml
