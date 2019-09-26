@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'ticketbase.users',
-    'ticketbase.core',
     'ticketbase.codebase',
 ]
 
