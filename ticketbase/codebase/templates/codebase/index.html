@@ -1,4 +1,11 @@
 {% extends 'codebase/base.html' %} 
   {% block content %}
     <h1>Demo</h1>
+
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.full_name }}. Thanks for logging in.</p>
+    <p><a href="{% url 'logout' %}">logout</a></p>
+    {% else %}
+        <p>Welcome. Please <a href="{% url 'login' %}">login</a>.</p>
+    {% endif %}
   {% endblock %}
