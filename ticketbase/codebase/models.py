@@ -24,6 +24,9 @@ class Ticket(models.Model):
 
     status = models.TextField(null=True)
     is_closed = models.BooleanField(default=True)
+    ticket_type = models.TextField(null=True)
+    category = models.TextField(null=True)
+    milestone = models.TextField(null=True)
 
     class Meta:
         unique_together = ['ticket_id', 'project']
@@ -34,13 +37,26 @@ class Ticket(models.Model):
         self.updated_at = node.find('updated-at').text
         self.ceated_at = node.find('created-at').text
         self.summary = node.find('summary').text
-        self.status = node.find('status').find('name').text
-        is_closed_text = node.find('status').find('treat-as-closed').text
+        status_node = node.find('status')
 
-        if is_closed_text == "true":
-            self.is_closed = True
-        else:
-            self.is_closed = False
+        if status_node:
+            self.status = status_node.find('name').text
+            is_closed_text = node.find('status').find('treat-as-closed').text
+
+            if is_closed_text == "true":
+                self.is_closed = True
+
+        self.ticket_type = node.find('ticket-type').text
+
+        category_node = node.find('category')
+
+        if category_node:
+            self.category = category_node.find('name').text
+
+        milestone_node = node.find('milestone')
+
+        if milestone_node:
+            self.milestone = milestone_node.find('name').text
 
         try:
             self.assignee = User.objects.get(codebase_id=node.find('assignee-id').text)
