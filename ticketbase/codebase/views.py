@@ -43,7 +43,7 @@ def search(request):
 
     tickets = Ticket.objects.filter(*filters).distinct().order_by('-ticket_id')
     context = {
-        'results': tickets[:100],
+        'results': tickets[:10],
         'q': q,
     }
     return render(request, 'codebase/search.html', context)
