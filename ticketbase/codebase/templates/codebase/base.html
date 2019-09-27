@@ -4,6 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% block title %} {% endblock title%}
 
     <!-- Icons-->
@@ -56,21 +57,22 @@
         >
 
         <select id="project-select" class="project-selection-dropdown-list">
-          <option value="all">All</option>
-          <option value="wolarf">Wolarf</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
+          {% for project in projects %}
+          <option value="{{ project.name }}">
+            {{ project.name }}
+          </option>
+          {% endfor %}
         </select>
       </form>
 
       <nav class="main-navigation">
         <ul class="main-navigation-item-list">
           <li class="main-navigation-item active"><a href="#">DASHBOARD</a></li>
-          <li class="main-navigation-item"><a href="#">TICKETS</a></li>
+          <li class="main-navigation-item">
+            <a href="/search/">ALL TICKETS</a>
+          </li>
+          <li class="main-navigation-item"><a href="#">MY TICKETS</a></li>
           <li class="main-navigation-item"><a href="#">MILESTONES</a></li>
-          <li class="main-navigation-item"><a href="#">MY PROJECTS</a></li>
         </ul>
       </nav>
     </header>
