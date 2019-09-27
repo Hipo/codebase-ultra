@@ -40,7 +40,7 @@
         form="search-form"
         name="assignee"
       >
-        <option value="All">All</option>
+        <option value="">All</option>
         {% for assignee_option in assignee_options %}
         <option value="{{ assignee_option.username }}">
           {{ assignee_option.get_full_name }}
@@ -59,7 +59,7 @@
         form="search-form"
         name="resolution"
       >
-        <option value="all">All</option>
+        <option value="">All</option>
         <option value="active">Active</option>
       </select>
     </div>
@@ -72,7 +72,7 @@
   {% for result in results %}
   <li class="ticket-item-wrapper">
     <a
-      href="/ticket/{{ result.project.name }}/{{ result.ticket_id }}/"
+      href="/ticket/{{ result.project.slug }}/{{ result.ticket_id }}/"
       class="ticket-item"
     >
       <div class="status-container">
