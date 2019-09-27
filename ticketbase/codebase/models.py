@@ -13,7 +13,7 @@ class Project(models.Model):
 
 class Ticket(models.Model):
     ticket_id = models.IntegerField()
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, related_name='tickets')
     xml = models.TextField(null=True, blank=True)
     needs_update = models.BooleanField(default=False)
     updated_at = models.DateTimeField(null=True, default=timezone.now)

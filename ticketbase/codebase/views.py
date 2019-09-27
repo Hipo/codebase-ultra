@@ -9,12 +9,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Ticket
+from .models import Ticket, User
 
 
 def index(request):
     context = {}
-    return render(request, 'codebase/index.html', context)
+    return render(request, 'codebase/dashboard.html', context)
 
 
 def search(request):
@@ -40,6 +40,30 @@ def search(request):
     }
     return render(request, 'codebase/search.html', context)
 
+def dashboard(request, user_id):
+    try:
+        user = User.objects.get(codebase_id=user_id)
+    except User.DoesNotExist:
+        return render(request, 'codebase/dashboard.html')
+
+    projects = user.projects.all()
+
+    projects_context = []
+
+    for project in projects:
+        filter = [Q(assignee__codebase_id=user_id) & Q(project__project_id=project.project_id)]
+        context = {
+            'project': project,
+            'tickets': Ticket.objects.filter(*filter).distinct().order_by('-ticket_id')[0:5]
+        }
+
+        projects_context.append(context)
+
+    context = {
+        'projects': projects_context
+    }
+
+    return render(request, 'codebase/dashboard.html', context)
 
 def ticket(request, ticket_id):
     ticket = Ticket.objects.get(ticket_id=ticket_id)
