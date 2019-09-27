@@ -22,6 +22,9 @@ class Ticket(models.Model):
     reporter = models.ForeignKey('users.User', null=True, on_delete=models.CASCADE, related_name='reporter')
     assignee = models.ForeignKey('users.User', null=True, on_delete=models.CASCADE, related_name='assignee')
 
+    status = models.TextField(null=True)
+    is_closed = models.BooleanField(default=True)
+
     class Meta:
         unique_together = ['ticket_id', 'project']
 
@@ -31,6 +34,13 @@ class Ticket(models.Model):
         self.updated_at = node.find('updated-at').text
         self.ceated_at = node.find('created-at').text
         self.summary = node.find('summary').text
+        self.status = node.find('status').find('name').text
+        is_closed_text = node.find('status').find('treat-as-closed').text
+
+        if is_closed_text == "true":
+            self.is_closed = True
+        else:
+            self.is_closed = False
 
         try:
             self.assignee = User.objects.get(codebase_id=node.find('assignee-id').text)
