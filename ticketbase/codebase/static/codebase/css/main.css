@@ -78,3 +78,7 @@ button {
 .header-button {
   display: inline-block;
 }
+
+.content {
+  padding: 15px;
+}

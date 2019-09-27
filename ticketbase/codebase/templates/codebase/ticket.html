@@ -1,15 +1,33 @@
 {% extends 'codebase/base.html' %}
 
+{% load static %}
+
+{% block title %}
+<title>Ticket Detail #{{ ticket.ticket_id }}</title>
+{% endblock title%}
+
+{% block extra_stylesheets %}
+<link rel="stylesheet" href="{% static 'codebase/css/ticket-detail.css' %}" />
+{% endblock extra_stylesheets%}
+
+
 {% block content %}
-
-<h2>{{ ticket.ticket_id }}: {{ ticket.summary }}</h2>
-
-<ul>
-  {% for note in ticket.ticketnote_set.all %}
-  <li>
-    <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
-  </li>
-  {% endfor %}
+<ul class="breadcrumbs">
+  <li class="breadcrumb-item">Dashboard</li>
+  <li class="breadcrumb-item">> Wolarf</li>
+  <li class="breadcrumb-item">> Tickets</li>
+  <li class="breadcrumb-item">> Ticket #{{ ticket.ticket_id }}</li>
 </ul>
 
+<div class="ticket-content">
+  <h2>{{ ticket.ticket_id }}: {{ ticket.summary }}</h2>
+
+  <ul>
+    {% for note in ticket.ticketnote_set.all %}
+    <li>
+      <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
