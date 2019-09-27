@@ -61,7 +61,10 @@
   </div>
 
   <ul>
-    {% for note in ticket.ticketnote_set.all %}
+    <li>
+      <pre style="white-space: pre-wrap;">{{ first_note.content }}</pre>
+    </li>
+    {% for note in ticket_notes %}
     <li>
       <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
     </li>

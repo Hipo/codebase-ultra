@@ -67,8 +67,12 @@ def dashboard(request, user_id):
 
 def ticket(request, ticket_id):
     ticket = Ticket.objects.get(ticket_id=ticket_id)
+    ticket_notes = ticket.ticketnote_set.all()
+
     context = {
         'ticket': ticket,
+        'first_note': ticket_notes.first,
+        'ticket_notes': ticket_notes[1:len(ticket_notes)],
     }
     return render(request, 'codebase/ticket.html', context)
 
