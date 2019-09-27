@@ -7,6 +7,7 @@ services:
       - "8002:80"
     volumes:
       - "./conf/nginx_production.conf:/etc/nginx/conf.d/default.conf"
+      - ".:/ticketbase"
 
   ticketbase:
     image: ticketbase
