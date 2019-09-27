@@ -6,9 +6,8 @@
     <meta charset="utf-8" />
     {% block title %}
     {% endblock title%}
-    {% block extra_stylesheets %} 
-    
-    {% endblock extra_stylesheets%}
+
+    <!-- Icons-->
     <!--[if IE]>
       <link
         rel="shortcut icon"
@@ -20,7 +19,11 @@
       href="{% static 'codebase/favicons/apple-touch-icon.png' %}"
     />
     <link rel="icon" href="{% static 'codebase/favicons/favicon.ico' %}" />
+
+    <!-- Css files-->
     <link rel="stylesheet" href="{% static 'codebase/css/main.css' %}" />
+    {% block extra_stylesheets %} 
+    {% endblock extra_stylesheets%}
 
     <!-- Fonts-->
     <link
