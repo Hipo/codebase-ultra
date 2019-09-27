@@ -6,6 +6,7 @@ from django.core.files.images import ImageFile
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -19,6 +20,7 @@ def index(request):
     return render(request, 'codebase/dashboard.html', context)
 
 
+@login_required
 def search(request):
     q = request.GET.get('q', '')
     assignee_id = request.GET.get('assignee_id', '')
@@ -42,6 +44,7 @@ def search(request):
     }
     return render(request, 'codebase/search.html', context)
 
+@login_required
 def dashboard(request, user_id):
     try:
         user = User.objects.get(codebase_id=user_id)
@@ -67,6 +70,8 @@ def dashboard(request, user_id):
 
     return render(request, 'codebase/dashboard.html', context)
 
+
+@login_required
 def ticket(request, ticket_id):
     ticket = Ticket.objects.get(ticket_id=ticket_id)
     ticket_notes = ticket.ticketnote_set.all()
@@ -77,18 +82,6 @@ def ticket(request, ticket_id):
         'ticket_notes': ticket_notes[1:len(ticket_notes)],
     }
     return render(request, 'codebase/ticket.html', context)
-
-
-@api_view(['POST'])
-def foo(request):
-    """
-    Create a new foo
-    """
-    serializer = FooSerializer(data=request.data)
-    if serializer.is_valid():
-        foo = serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def login_view(request):

@@ -150,3 +150,4 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'Admin Panel',
 }
 
+LOGIN_URL = 'login'
