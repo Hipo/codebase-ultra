@@ -41,10 +41,9 @@
         name="assignee"
       >
         <option value="All">All</option>
-        <option value="Sevgi T">Sevgi T</option>
-        <option value="Efe O">Efe O</option>
-        <option value="Berkan U">Berkan U</option>
-        <option value="Fergal W">Fergal W</option>
+        {% for assignee_option in assignee_options %}
+        <option value="{{ assignee_option }}">{{ assignee_option }}</option>
+        {% endfor %}
       </select>
     </div>
 
@@ -76,7 +75,9 @@
   {% for result in results %}
   <tr>
     <td>
-      <a href="/ticket/{{ result.ticket_id }}/">{{ result.ticket_id }}</a>
+      <a href="/ticket/{{ result.project.name }}/{{ result.ticket_id }}/">
+        {{ result.ticket_id }}
+      </a>
     </td>
     <td>{{ result.summary }}</td>
   </tr>
