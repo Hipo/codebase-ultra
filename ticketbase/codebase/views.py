@@ -12,7 +12,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Ticket, User
+from .models import Ticket, User, Project
 
 
 def index(request):
@@ -25,13 +25,18 @@ def search(request):
     q = request.GET.get('q', '')
     assignee_id = request.GET.get('assignee_id', '')
     assignee = request.GET.get('assignee', '')
-    project = request.GET.get('project', 'all').lower()
-    assignee_options = User.objects.all()
+    project_name = request.GET.get('project', 'all').lower()
+
+    if project_name == 'all':
+        assignee_options = User.objects.all()
+    else:
+        projects = Project.objects.filter(slug=project_name)
+        assignee_options = User.objects.filter(projects__in=projects)
     keywords = q.split()
     filters = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
 
-    if project != 'all':
-        filters.append(Q(project__name=project))
+    if project_name != 'all':
+        filters.append(Q(project__name=project_name))
 
     if assignee_id:
         filters.append(Q(assignee__codebase_id=assignee_id))

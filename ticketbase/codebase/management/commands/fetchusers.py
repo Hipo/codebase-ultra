@@ -25,6 +25,7 @@ class Command(BaseCommand):
         project = Project.objects.get(slug=options['project_name'])
         user_nodes = api.get_users(options['project_name'])
         for node in user_nodes:
+            print(project)
             username = node.find('username').text
             user, _ = User.objects.get_or_create(username=username, defaults=dict(
                 first_name=node.find('first-name').text,
@@ -34,7 +35,13 @@ class Command(BaseCommand):
                 company=node.find('company').text,
                 is_active=False,
             ))
-            user.projects.add(project)
+
+            if user.projects:
+                user.projects.add(project)
+            else:
+                user.projects = [project]
+
+            user.save()
             n += 1
 
         self.stdout.write(self.style.SUCCESS(f'Imported {n} users'))
