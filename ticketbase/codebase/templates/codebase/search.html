@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-<title>Ticket Detail #{{ ticket.ticket_id }}</title>
+<title>Search Page</title>
 {% endblock title%}
 
 {% block extra_stylesheets %}
@@ -42,7 +42,9 @@
       >
         <option value="All">All</option>
         {% for assignee_option in assignee_options %}
-        <option value="{{ assignee_option.username }}">{{ assignee_option.get_full_name }}</option>
+        <option value="{{ assignee_option.username }}">{{
+          assignee_option.get_full_name
+        }}</option>
         {% endfor %}
       </select>
     </div>
@@ -66,22 +68,55 @@
   <input type="submit" value="Search" class="search-submit-button" />
 </form>
 
-<table>
-  <tr>
-    <th>Id</th>
-    <th>Title</th>
-  </tr>
-
+<ul class="ticket-list">
   {% for result in results %}
-  <tr>
-    <td>
-      <a href="/ticket/{{ result.project.name }}/{{ result.ticket_id }}/">
-        {{ result.ticket_id }}
-      </a>
-    </td>
-    <td>{{ result.summary }}</td>
-  </tr>
+  <li class="ticket-item-wrapper">
+    <a
+      href="/ticket/{{ result.project.name }}/{{ result.ticket_id }}/"
+      class="ticket-item"
+    >
+      <div class="status-container">
+        <p class="status-item">
+          <img
+            src="{% static 'codebase/icons/green-dot.svg' %}"
+            alt="Green dot"
+          />
+          In progress
+        </p>
+
+        <p class="status-item">
+          <img
+            src="{% static 'codebase/icons/user-icon.svg' %}"
+            alt="User icon"
+          />
+          {{ result.assignee.full_name }}
+        </p>
+
+        <p class="status-item">
+          <img
+            src="{% static 'codebase/icons/red-up-arrow.svg' %}"
+            alt="Red up arrow"
+          />
+          Priority: high
+        </p>
+      </div>
+      <div class="ticket-details-container">
+        <p class="ticket-detail-item project-name">{{ result.project.name }}</p>
+        <p class="ticket-detail-item ticket-title">
+          #{{ result.ticket_id }} {{ result.summary }}
+        </p>
+        <p class="ticket-detail-item milestone">
+          {% if result.milestone %}
+          {{ result.milestone }}
+          {% else %} No milestone {% endif %}
+        </p>
+        <time class="ticket-detail-item updated-at">
+          {{ result.updated_at }}
+      </time>
+      </div>
+    </a>
+  </li>
   {% endfor %}
-</table>
+</ul>
 
 {% endblock %}

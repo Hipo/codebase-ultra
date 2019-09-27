@@ -11,9 +11,15 @@
   line-height: 17px;
 }
 
+title {
+  display: none;
+}
+
 body {
   width: 100vw;
   height: 100vh;
+
+  background-color: #f7f7fa;
 }
 
 a {
@@ -102,5 +108,5 @@ button {
 }
 
 .content {
-  padding: 15px;
+  /* padding: 15px; */
 }
