@@ -42,9 +42,9 @@
       >
         <option value="All">All</option>
         {% for assignee_option in assignee_options %}
-        <option value="{{ assignee_option.username }}">{{
-          assignee_option.get_full_name
-        }}</option>
+        <option value="{{ assignee_option.username }}">
+          {{ assignee_option.get_full_name }}
+        </option>
         {% endfor %}
       </select>
     </div>
