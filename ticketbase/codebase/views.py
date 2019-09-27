@@ -25,19 +25,23 @@ def search(request):
     q = request.GET.get('q', '')
     assignee_id = request.GET.get('assignee_id', '')
     assignee = request.GET.get('assignee', '')
+    project = request.GET.get('project', 'all').lower()
     keywords = q.split()
-    keyword_filter = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
+    filters = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
+
+    if project != 'all':
+        filters.append(Q(project__name=project))
 
     if assignee_id:
-        keyword_filter.append(Q(assignee__codebase_id=assignee_id))
+        filters.append(Q(assignee__codebase_id=assignee_id))
 
     if assignee:
-        keyword_filter.extend([Q(assignee__username__icontains=assignee) |
+        filters.extend([Q(assignee__username__icontains=assignee) |
                                Q(assignee__first_name__icontains=assignee) |
                                Q(assignee__last_name__icontains=assignee) |
                                Q(assignee__email__icontains=assignee)])
 
-    tickets = Ticket.objects.filter(*keyword_filter).distinct().order_by('-ticket_id')
+    tickets = Ticket.objects.filter(*filters).distinct().order_by('-ticket_id')
     context = {
         'results': tickets[:100],
         'q': q,
@@ -68,8 +72,8 @@ def dashboard(request):
 
 
 @login_required
-def ticket(request, ticket_id):
-    ticket = Ticket.objects.get(ticket_id=ticket_id)
+def ticket(request, project_name, ticket_id):
+    ticket = Ticket.objects.get(ticket_id=ticket_id, project__name=project_name)
     ticket_notes = ticket.ticketnote_set.all()
 
     context = {
