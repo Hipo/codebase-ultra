@@ -7,19 +7,22 @@ class Migration(migrations.Migration):
     ] 
 
     def generate_superuser(apps, schema_editor):
-        from django.contrib.auth import get_user_model
-        User = get_user_model()
+        # NB. This DOESN'T WORK if the user models gets changed later :()
 
-        DJANGO_SU_NAME = 'admin'
-        DJANGO_SU_EMAIL = 'admin@example.com'
-        DJANGO_SU_PASSWORD = os.environ.get('DJANGO_SU_PASSWORD')
+        # from django.contrib.auth import get_user_model
+        # User = get_user_model()
 
-        superuser = User.objects.create_superuser(
-            username=DJANGO_SU_NAME,
-            email=DJANGO_SU_EMAIL,
-            password=DJANGO_SU_PASSWORD)
+        # DJANGO_SU_NAME = 'admin'
+        # DJANGO_SU_EMAIL = 'admin@example.com'
+        # DJANGO_SU_PASSWORD = os.environ.get('DJANGO_SU_PASSWORD')
 
-        superuser.save()
+        # superuser = User.objects.create_superuser(
+        #     username=DJANGO_SU_NAME,
+        #     email=DJANGO_SU_EMAIL,
+        #     password=DJANGO_SU_PASSWORD)
+
+        # superuser.save()
+        pass
 
     operations = [
         migrations.RunPython(generate_superuser),

@@ -1,4 +1,3 @@
-import redis
 import sentry_sdk
 import dj_database_url
 from sentry_sdk.integrations.django import DjangoIntegration
