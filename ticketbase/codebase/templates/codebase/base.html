@@ -17,9 +17,45 @@
     />
     <link rel="icon" href="{% static 'codebase/favicons/favicon.ico' %}" />
     <link rel="stylesheet" href="{% static 'codebase/css/main.css' %}" />
+
+    <!-- Fonts-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+    />
   </head>
 
   <body>
-    {% block content %} {% endblock %}
+    <header class="page-header">
+      <div class="top-line">
+        <h1 class="header-title">Hello, Sevgi (Not Dynamic ATM)</h1>
+        <div class="buttons">
+          <button class="header-button">
+            <img
+              src="{% static 'codebase/icons/magnify-glass.svg' %}"
+              alt="Search icon"
+            />
+          </button>
+          <button class="header-button">
+            <img
+              src="{% static 'codebase/icons/settings.svg' %}"
+              alt="Settings icon"
+            />
+          </button>
+        </div>
+      </div>
+      <nav class="main-navigation">
+        <ul class="main-navigation-item-list">
+          <li class="main-navigation-item active"><a href="#">DASHBOARD</a></li>
+          <li class="main-navigation-item"><a href="#">TICKETS</a></li>
+          <li class="main-navigation-item"><a href="#">MILESTONES</a></li>
+          <li class="main-navigation-item"><a href="#">MY PROJECTS</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="content">
+      {% block content %} {% endblock %}
+    </div>
   </body>
 </html>
