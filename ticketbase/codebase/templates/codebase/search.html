@@ -1,10 +1,75 @@
 {% extends 'codebase/base.html' %}
 
+{% load static %}
+
+{% block title %}
+<title>Ticket Detail #{{ ticket.ticket_id }}</title>
+{% endblock title%}
+
+{% block extra_stylesheets %}
+<link rel="stylesheet" href="{% static 'codebase/css/search.css' %}" />
+{% endblock extra_stylesheets%}
+
 {% block content %}
-<form action="" method="get">
+<form id="search-form" class="search-container" action="" method="get">
   {% csrf_token %}
-  <input type="search" name="q" size="100" value="{{ q }}" />
-  <input type="submit" value="Search" />
+  <input
+    type="search"
+    name="q"
+    value="{{ q }}"
+    class="big-search-bar"
+    autocomplete="off"
+  />
+
+  <button class="glass-icon-button" type="submit">
+    <img
+      src="{% static 'codebase/icons/magnify-glass-red.svg' %}"
+      alt="Search icon"
+      class="red-search-icon"
+    />
+  </button>
+
+  <div class="search-dropdowns-wrapper">
+    <div class="search-dropdown">
+      <label for="project-select" class="search-dropdown-label">
+        Assignee
+      </label>
+      <select
+        id="project-select"
+        class="search-dropdown-list"
+        form="search-form"
+        name="assignee"
+      >
+        <option value="all">All</option>
+        <option value="wolarf">Wolarf</option>
+        <option value="hamster">Hamster</option>
+        <option value="parrot">Parrot</option>
+        <option value="spider">Spider</option>
+        <option value="goldfish">Goldfish</option>
+      </select>
+    </div>
+
+    <div class="search-dropdown">
+      <label for="project-select" class="search-dropdown-label">
+        Resolution
+      </label>
+      <select
+        id="project-select"
+        class="search-dropdown-list"
+        form="search-form"
+        name="resolution"
+      >
+        <option value="all">All</option>
+        <option value="wolarf">Wolarf</option>
+        <option value="hamster">Hamster</option>
+        <option value="parrot">Parrot</option>
+        <option value="spider">Spider</option>
+        <option value="goldfish">Goldfish</option>
+      </select>
+    </div>
+  </div>
+
+  <input type="submit" value="Search" class="search-submit-button" />
 </form>
 
 <table>
