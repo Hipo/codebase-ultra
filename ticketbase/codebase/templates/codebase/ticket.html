@@ -16,24 +16,21 @@
 
   <div class="ticket-details-header">
     <div class="status-bar">
-      padding left right 20px
-      <div class="ticket-status">
-        <span class="status-icon">
-          green dot
-        </span>
-        <p class="status-text">
-          In progress
-        </p>
-      </div>
+      <p class="status-bar-item">
+        <img
+          src="{% static 'codebase/icons/green-dot.svg' %}"
+          alt="Green dot"
+        />
+        In progress
+      </p>
 
-      <div class="ticket-status">
-        <span class="priority-icon">
-          red up arrow
-        </span>
-        <p class="priority-text">
-          Priority: high
-        </p>
-      </div>
+      <p class="status-bar-item">
+        <img
+          src="{% static 'codebase/icons/red-up-arrow.svg' %}"
+          alt="Red up arrow"
+        />
+        Priority: high
+      </p>
     </div>
 
     <dl class="ticket-properties">
@@ -50,20 +47,21 @@
         <dd>Phase 1</dd>
       </div>
       <div class="property-item">
-        <dt>ASIGNEE</dt>
+        <dt>ASSIGNEE</dt>
         <dd>Sevgi T</dd>
       </div>
     </dl>
 
-    <div class="first-entry-text">
+    <div class="first-note">
+      {{ first_note.content }}
+    </div>
 
+    <div class="reported-by">
+      Reported by Efe O on 05 Jul at 18:15
     </div>
   </div>
 
   <ul>
-    <li>
-      <pre style="white-space: pre-wrap;">{{ first_note.content }}</pre>
-    </li>
     {% for note in ticket_notes %}
     <li>
       <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
