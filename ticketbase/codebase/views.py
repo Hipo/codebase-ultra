@@ -34,8 +34,7 @@ def search(request):
     if project_name == 'all':
         assignee_options = User.objects.all()
     else:
-        projects = Project.objects.filter(slug=project_name)
-        assignee_options = User.objects.filter(projects__in=projects)
+        assignee_options = User.objects.filter(projects__slug=project_name)
     keywords = q.split()
     filters = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
 
