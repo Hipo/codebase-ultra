@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 class Project(models.Model):
     project_id = models.IntegerField(primary_key=True)
     name = models.TextField(null=True, blank=True)
-
+    slug = models.TextField(null=True)
 
 class Ticket(models.Model):
     ticket_id = models.IntegerField()

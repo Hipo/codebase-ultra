@@ -21,9 +21,12 @@ class Command(BaseCommand):
 
         files = (path / 'tickets').glob('*.xml')
 
-        project_id = api.get_project_id(options['project_name'])
+        project_node = api.get_project(options['project_name'])
 
-        project, _ = Project.objects.get_or_create(project_id=project_id, name=options['project_name'])
+        project_id = project_node.find('project-id').text
+        project_name = project_node.find('project-name').text
+
+        project, _ = Project.objects.get_or_create(project_id=project_id, slug=options['project_name'], name=project_name)
 
         n = 0
         for filename in files:

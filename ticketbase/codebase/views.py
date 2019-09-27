@@ -73,7 +73,7 @@ def dashboard(request):
 
 @login_required
 def ticket(request, project_name, ticket_id):
-    ticket = Ticket.objects.get(ticket_id=ticket_id, project__name=project_name)
+    ticket = Ticket.objects.get(ticket_id=ticket_id, project__slug=project_name)
     ticket_notes = ticket.ticketnote_set.all()
 
     context = {

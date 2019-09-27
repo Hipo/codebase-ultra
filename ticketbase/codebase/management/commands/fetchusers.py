@@ -18,9 +18,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         n = 0
-        project_id = api.get_project_id(options['project_name'])
-        project, _ = Project.objects.get_or_create(project_id=project_id, name=options['project_name'])
-        project = Project.objects.get(name=options['project_name'])
+        project_node = api.get_project(options['project_name'])
+        project_id = project_node.find('project-id').text
+        project_name = project_node.find('project-name').text
+        project, _ = Project.objects.get_or_create(project_id=project_id, slug=options['project_name'], name=project_name)
+        project = Project.objects.get(slug=options['project_name'])
         user_nodes = api.get_users(options['project_name'])
         for node in user_nodes:
             username = node.find('username').text

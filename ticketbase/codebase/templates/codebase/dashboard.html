@@ -10,7 +10,7 @@
 
 {% for ticket in project.tickets %}
 
-<a href="/ticket/{{ ticket.ticket_id }}/">#{{ ticket.ticket_id }}</a> - {{ ticket.summary }} <br>
+<a href="/ticket/{{ project.project.slug }}/{{ ticket.ticket_id }}/">#{{ ticket.ticket_id }}</a> - {{ ticket.summary }} <br>
 
 {% endfor %}
 
