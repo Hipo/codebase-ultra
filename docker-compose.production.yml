@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  nginx:
+    image: nginx:1.14.0
+    ports:
+      - "8002:80"
+    environment:
+    - VIRTUAL_HOST=ticketbase.hack.hipolabs.com
+    volumes:
+      - "./conf/nginx_production.conf:/etc/nginx/conf.d/default.conf"
+
+  ticketbase:
+    image: ticketbase
+    build:
+      context: .
+      target: application
+    volumes:
+      - ".:/ticketbase"
+      - ".data/root:/root"
+    environment:
+      - DJANGO_SETTINGS_MODULE=ticketbase.settings.production
+      - DJANGO_SU_NAME=admin
+      - DJANGO_SU_EMAIL=admin@example.com
+      - DJANGO_SU_PASSWORD
+      - DATABASE_URL
+    command: gunicorn --config /ticketbase/conf/gunicorn.conf.py ticketbase.wsgi
