@@ -18,3 +18,12 @@
 .ticket-content {
   margin-top: 20px;
 }
+
+.ticket-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 16px;
+
+  margin-bottom: 10px;
+}

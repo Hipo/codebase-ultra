@@ -14,13 +14,13 @@
 {% block content %}
 <ul class="breadcrumbs">
   <li class="breadcrumb-item">Dashboard</li>
-  <li class="breadcrumb-item">> Wolarf</li>
-  <li class="breadcrumb-item">> Tickets</li>
+  <li class="breadcrumb-item">> Breadcrumbs</li>
+  <li class="breadcrumb-item">> Not functional yet</li>
   <li class="breadcrumb-item">> Ticket #{{ ticket.ticket_id }}</li>
 </ul>
 
 <div class="ticket-content">
-  <h2>{{ ticket.ticket_id }}: {{ ticket.summary }}</h2>
+  <h2 class="ticket-title">#{{ ticket.ticket_id }} {{ ticket.summary }}</h2>
 
   <ul>
     {% for note in ticket.ticketnote_set.all %}
