@@ -47,18 +47,12 @@ def search(request):
 
 @login_required
 def dashboard(request):
-    user_id = request.user.codebase_id
-    try:
-        user = User.objects.get(codebase_id=user_id)
-    except User.DoesNotExist:
-        return render(request, 'codebase/dashboard.html')
-
+    user = request.user
     projects = user.projects.all()
-
     projects_context = []
 
     for project in projects:
-        filter = [Q(assignee__codebase_id=user_id) & Q(project__project_id=project.project_id)]
+        filter = [Q(assignee=user) & Q(project__project_id=project.project_id)]
         context = {
             'project': project,
             'tickets': Ticket.objects.filter(*filter).distinct().order_by('-ticket_id')[0:5]
