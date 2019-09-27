@@ -26,6 +26,7 @@ def search(request):
     assignee_id = request.GET.get('assignee_id', '')
     assignee = request.GET.get('assignee', '')
     project = request.GET.get('project', 'all').lower()
+    assignee_options = User.objects.all()
     keywords = q.split()
     filters = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
 
@@ -45,6 +46,7 @@ def search(request):
     context = {
         'results': tickets[:10],
         'q': q,
+        'assignee_options': assignee_options,
     }
     return render(request, 'codebase/search.html', context)
 
