@@ -33,7 +33,7 @@ def search(request):
     if project != 'all':
         filters.append(Q(project__name=project))
 
-if assignee_id:
+    if assignee_id:
         filters.append(Q(assignee__codebase_id=assignee_id))
 
     if assignee:
