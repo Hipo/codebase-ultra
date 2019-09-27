@@ -1,0 +1,19 @@
+{% extends 'codebase/base.html' %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+{% for project in projects %}
+
+<h3>{{ project.project.name }}</h3>
+
+{% for ticket in project.tickets %}
+
+<a href="/ticket/{{ ticket.ticket_id }}/">#{{ ticket.ticket_id }}</a> - {{ ticket.summary }} <br>
+
+{% endfor %}
+
+{% endfor %}
+
+{% endblock %}

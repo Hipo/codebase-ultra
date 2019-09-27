@@ -1,15 +1,74 @@
 {% extends 'codebase/base.html' %}
 
-{% block content %}
+{% load static %}
 
-  <h3>{{ ticket.ticket_id }}: {{ ticket.summary }}</h3>
+{% block title %}
+<title>Ticket Detail #{{ ticket.ticket_id }}</title>
+{% endblock title%}
+
+{% block extra_stylesheets %}
+<link rel="stylesheet" href="{% static 'codebase/css/ticket-detail.css' %}" />
+{% endblock extra_stylesheets%}
+
+{% block content %}
+<div class="ticket-content">
+  <h2 class="ticket-title">#{{ ticket.ticket_id }} {{ ticket.summary }}</h2>
+
+  <div class="ticket-details-header">
+    <div class="status-bar">
+      padding left right 20px
+      <div class="ticket-status">
+        <span class="status-icon">
+          green dot
+        </span>
+        <p class="status-text">
+          In progress
+        </p>
+      </div>
+
+      <div class="ticket-status">
+        <span class="priority-icon">
+          red up arrow
+        </span>
+        <p class="priority-text">
+          Priority: high
+        </p>
+      </div>
+    </div>
+
+    <dl class="ticket-properties">
+      <div class="property-item">
+        <dt>TYPE</dt>
+        <dd>Feature</dd>
+      </div>
+      <div class="property-item">
+        <dt>CATEGORY</dt>
+        <dd>General</dd>
+      </div>
+      <div class="property-item">
+        <dt>MILESTONE</dt>
+        <dd>Phase 1</dd>
+      </div>
+      <div class="property-item">
+        <dt>ASIGNEE</dt>
+        <dd>Sevgi T</dd>
+      </div>
+    </dl>
+
+    <div class="first-entry-text">
+
+    </div>
+  </div>
 
   <ul>
-    {% for note in ticket.ticketnote_set.all %}
+    <li>
+      <pre style="white-space: pre-wrap;">{{ first_note.content }}</pre>
+    </li>
+    {% for note in ticket_notes %}
     <li>
       <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
     </li>
     {% endfor %}
   </ul>
-
+</div>
 {% endblock %}
