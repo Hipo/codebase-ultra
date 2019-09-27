@@ -42,10 +42,7 @@ def search(request):
         filters.append(Q(assignee__codebase_id=assignee_id))
 
     if assignee:
-        filters.extend([Q(assignee__username__icontains=assignee) |
-                               Q(assignee__first_name__icontains=assignee) |
-                               Q(assignee__last_name__icontains=assignee) |
-                               Q(assignee__email__icontains=assignee)])
+        filters.append(Q(assignee__username=assignee))
 
     tickets = Ticket.objects.filter(*filters).distinct().order_by('-ticket_id')
     context = {
