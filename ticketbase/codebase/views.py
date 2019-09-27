@@ -16,15 +16,15 @@ from .models import Ticket, User, Project
 
 
 def index(request):
-    projects = request.user.projects.all()
+    project_options = request.user.projects.all()
 
-    context = {"projects": projects}
+    context = {"projects": project_options}
     return render(request, 'codebase/dashboard.html', context)
 
 
 @login_required
 def search(request):
-    projects = request.user.projects.all()
+    project_options = request.user.projects.all()
     q = request.GET.get('q', '')
     assignee_id = request.GET.get('assignee_id', '')
     assignee = request.GET.get('assignee', '')
@@ -58,7 +58,7 @@ def search(request):
         'results': tickets[:10],
         'q': q,
         'assignee_options': assignee_options,
-        'projects': projects,
+        'projects': project_options,
     }
     return render(request, 'codebase/search.html', context)
 
@@ -87,6 +87,7 @@ def dashboard(request):
 
 @login_required
 def ticket(request, project_name, ticket_id):
+    project_options = request.user.projects.all()
     ticket = Ticket.objects.get(ticket_id=ticket_id, project__slug=project_name)
     ticket_notes = ticket.ticketnote_set.all()
 
@@ -94,7 +95,7 @@ def ticket(request, project_name, ticket_id):
         'ticket': ticket,
         'first_note': ticket_notes.first,
         'ticket_notes': ticket_notes[1:len(ticket_notes)],
-        "projects": projects,
+        "projects": project_options,
     }
     return render(request, 'codebase/ticket.html', context)
 

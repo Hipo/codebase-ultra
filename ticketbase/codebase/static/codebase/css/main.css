@@ -96,6 +96,8 @@ a {
 
 .main-navigation-item.active a {
   opacity: unset;
+
+  text-decoration: underline;
 }
 
 button {
