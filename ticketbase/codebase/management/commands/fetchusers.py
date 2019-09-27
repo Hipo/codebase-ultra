@@ -18,6 +18,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         n = 0
+        project_id = api.get_project_id(options['project_name'])
+        project, _ = Project.objects.get_or_create(project_id=project_id, name=options['project_name'])
         project = Project.objects.get(name=options['project_name'])
         user_nodes = api.get_users(options['project_name'])
         for node in user_nodes:
