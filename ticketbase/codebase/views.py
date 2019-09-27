@@ -44,8 +44,10 @@ def search(request):
     }
     return render(request, 'codebase/search.html', context)
 
+
 @login_required
-def dashboard(request, user_id):
+def dashboard(request):
+    user_id = request.user.codebase_id
     try:
         user = User.objects.get(codebase_id=user_id)
     except User.DoesNotExist:

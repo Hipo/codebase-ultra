@@ -14,7 +14,7 @@
 <div class="ticket-content">
   <h2 class="ticket-title">#{{ ticket.ticket_id }} {{ ticket.summary }}</h2>
 
-  <div class="ticket-details-header">
+  <div class="ticket-post-card ticket-details-header">
     <div class="status-bar">
       <p class="status-bar-item">
         <img
@@ -38,14 +38,17 @@
         <dt>TYPE</dt>
         <dd>Feature</dd>
       </div>
+
       <div class="property-item">
         <dt>CATEGORY</dt>
         <dd>General</dd>
       </div>
+
       <div class="property-item">
         <dt>MILESTONE</dt>
         <dd>Phase 1</dd>
       </div>
+
       <div class="property-item">
         <dt>ASSIGNEE</dt>
         <dd>Sevgi T</dd>
@@ -63,8 +66,22 @@
 
   <ul>
     {% for note in ticket_notes %}
-    <li>
-      <pre style="white-space: pre-wrap;">{{ note.content }}</pre>
+    <li class="ticket-post-card">
+      <div class="ticket-post-author">
+        <img
+          src="{% static 'codebase/icons/anon-user.svg' %}"
+          alt="Anonymous user picture"
+          class="ticket-post-author-avatar"
+        />
+
+        <div class="ticket-post-author-details">
+          <p class="ticket-post-author-name">Efe O</p>
+
+          <time class="ticket-post-date">Today at 9:35 a.m</time>
+        </div>
+      </div>
+
+      <p class="ticket-post-text">{{ note.content }}</p>
     </li>
     {% endfor %}
   </ul>
