@@ -29,6 +29,7 @@ def search(request):
     assignee_id = request.GET.get('assignee_id', '')
     assignee = request.GET.get('assignee', '')
     project_name = request.GET.get('project', 'all').lower()
+    is_closed = request.GET.get('is_closed', False)
 
     if project_name == 'all':
         assignee_options = User.objects.all()
@@ -37,6 +38,11 @@ def search(request):
         assignee_options = User.objects.filter(projects__in=projects)
     keywords = q.split()
     filters = [Q(summary__icontains=kw) | Q(ticketnote__content__icontains=kw) for kw in keywords]
+
+    if is_closed == 'true':
+        filters.append(Q(is_closed=True))
+    elif is_closed == 'false':
+        filters.append(Q(is_closed=False))
 
     if project_name != 'all':
         filters.append(Q(project__name=project_name))
