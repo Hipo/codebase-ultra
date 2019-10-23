@@ -10,5 +10,5 @@ django-extensions==2.2.1
 django-extra-fields==1.2.4
 sentry-sdk==0.11.2
 ipython==7.7.0
-Pillow==6.1.0
+Pillow==6.2.0
 dj-database-url==0.5.0
